@@ -1,0 +1,170 @@
+[
+  {
+  "id": "aad94bf3-cc29-462f-9ddd-6d6424ebcdf1",
+  "name": "Пепперони",
+  "minPrice": 395,
+  "filter": ["Мясные"],
+  "price": {
+    "traditional": {
+      "small": 395,
+      "medium": 450,
+      "big": 650
+    },
+    "slim": {
+      "small": 400,
+      "medium": 465,
+      "big": 665
+    }
+  },
+  "image":
+  "https://res.cloudinary.com/drj9behan/image/upload/v1656414104/devs_setups/peperoni_bwviti.jpg",
+  "popularity": 1
+},
+  {
+    "id": "9c8c1f0b-5ba6-46fc-b733-732f9540cfc6",
+    "name": "Гавайская",
+    "minPrice": 380,
+    "filter": ["Мясные", "Острые"],
+    "price": {
+      "traditional": {
+        "small": 380,
+        "medium": 430,
+        "big": 630
+      },
+      "slim": {
+        "small": 390,
+        "medium": 445,
+        "big": 645
+      }
+    },
+    "image":
+    "https://res.cloudinary.com/drj9behan/image/upload/v1656414103/devs_setups/havayi_mdargt.jpg",
+    "popularity": 4
+  },
+  {
+    "id": "c8b29daf-72ae-4228-bc58-3d5182532819",
+    "name": "Бекон и грибы",
+    "minPrice": 395,
+    "filter": ["Мясные"],
+    "price": {
+      "traditional": {
+        "small": 395,
+        "medium": 450,
+        "big": 650
+      },
+      "slim": {
+        "small": 400,
+        "medium": 465,
+        "big": 665
+      }
+    },
+    "image":
+    "https://res.cloudinary.com/drj9behan/image/upload/v1656414104/devs_setups/meatAndShamps_xy8pck.jpg",
+    "popularity": 6
+  },
+  {
+    "id": "4c7f7c2c-a56b-4a21-bc01-62d2ef6f6d87",
+    "name": "Жульен",
+    "minPrice": 355,
+    "filter": ["Вегетарианские"],
+    "price": {
+      "traditional": {
+        "small": 355,
+        "medium": 430,
+        "big": 630
+      },
+      "slim": {
+        "small": 375,
+        "medium": 445,
+        "big": 645
+      }
+    },
+    "image":
+    "https://res.cloudinary.com/drj9behan/image/upload/v1656414103/devs_setups/julien_stfguz.jpg",
+    "popularity": 7
+  },
+  {
+    "id": "dcc4dc00-7ba7-45bb-a393-b4567cb44f60",
+    "name": "4 сезона",
+    "minPrice": 395,
+    "filter": ["Мясные"],
+    "price": {
+      "traditional": {
+        "small": 395,
+        "medium": 450,
+        "big": 650
+      },
+      "slim": {
+        "small": 400,
+        "medium": 465,
+        "big": 665
+      }
+    },
+    "image":
+    "https://res.cloudinary.com/drj9behan/image/upload/v1656414103/devs_setups/4seasons_xegcyo.jpg",
+    "popularity": 7
+  },
+  {
+    "id": "fc169321-941f-4ff3-ace8-7ab0df9943e8",
+    "name": "Баварская",
+    "minPrice": 395,
+    "filter": ["Мясные", "Гриль"],
+    "price": {
+      "traditional": {
+        "small": 395,
+        "medium": 450,
+        "big": 650
+      },
+      "slim": {
+        "small": 400,
+        "medium": 465,
+        "big": 665
+      }
+    },
+    "image":
+    "https://res.cloudinary.com/drj9behan/image/upload/v1656414103/devs_setups/bavarish_rvakue.jpg",
+    "popularity": 2
+  },
+  {
+    "id": "40998ec3-3836-43aa-a0eb-44d9ef058597",
+    "name": "Карбонара",
+    "minPrice": 375,
+    "filter": ["Мясные", "Острые"],
+    "price": {
+      "traditional": {
+        "small": 375,
+        "medium": 440,
+        "big": 630
+      },
+      "slim": {
+        "small": 385,
+        "medium": 465,
+        "big": 645
+      }
+    },
+    "image":
+    "https://res.cloudinary.com/drj9behan/image/upload/v1656414103/devs_setups/carbonara_ic7y2a.jpg",
+    "popularity": 3
+  },
+  {
+    "id": "b89387ce-efba-4a06-b716-40bb0057e15b",
+    "name": "Маргарита",
+    "minPrice": 355,
+    "filter": ["Вегетарианские"],
+    "price": {
+      "traditional": {
+        "small": 355,
+        "medium": 420,
+        "big": 610
+      },
+      "slim": {
+        "small": 365,
+        "medium": 430,
+        "big": 620
+      }
+    },
+    "image":
+    "https://res.cloudinary.com/drj9behan/image/upload/v1656414103/devs_setups/margarita_ctties.jpg",
+    "popularity": 2
+  }
+]

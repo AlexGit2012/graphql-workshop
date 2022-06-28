@@ -1,1 +1,10 @@
 .idea/
+/node_modules/
+
+/backend/.idea
+/backend/node_modules
+/backend/.gitignore
+
+/front/.idea
+/front/node_modules
+/front/.gitignore
