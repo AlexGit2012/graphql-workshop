@@ -1,0 +1,13 @@
+.header__wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 135px;
+    border-bottom: 1px solid #f7f7f7;
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}

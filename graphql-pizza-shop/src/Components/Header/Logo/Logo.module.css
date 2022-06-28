@@ -1,0 +1,39 @@
+.logo__wrapper {
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+}
+
+.logo__image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 17px;
+}
+
+.logo__image img {
+    height: 36px;
+    width: 36px;
+}
+
+.logo__text {
+    display: flex;
+    flex-direction: column;
+}
+
+.text__bold {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 800;
+    font-size: 24px;
+    line-height: 29px;
+    text-transform: uppercase;
+    color: #181818;
+}
+
+.text__simple {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: #7b7b7b;
+}

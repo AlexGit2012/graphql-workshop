@@ -1,0 +1,20 @@
+module.exports = {
+    trailingComma: 'es5',
+    tabWidth: 4,
+    semi: true,
+    singleQuote: true,
+    printWidth: 100,
+    importOrder: [
+        '^react',
+        '^(?!react)\\w+$',
+        '^@mui/lab(.*)$',
+        '^@mui/material(.*)$',
+        '^@(.*)$',
+        '<THIRD_PARTY_MODULES>',
+        '.jsx|.js',
+        '.css|.styles|.scss|.sass',
+        '.svg|.png',
+    ],
+    importOrderSeparation: false,
+    importOrderSortSpecifiers: true,
+};

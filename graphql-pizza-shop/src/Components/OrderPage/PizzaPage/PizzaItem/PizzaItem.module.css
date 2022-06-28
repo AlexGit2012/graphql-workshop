@@ -1,0 +1,59 @@
+.pizza {
+    width: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pizza__image {
+    width: 260px;
+    height: 260px;
+}
+
+.pizza__name {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+}
+
+.pizza__settings {
+    box-sizing: border-box;
+    width: 280px;
+    background: #f3f3f3;
+    border-radius: 10px;
+    display: grid;
+    padding: 7px;
+    grid-template:
+        'el0 el0 el0 el1 el1 el1'
+        'el2 el2 el3 el3 el4 el4';
+    justify-items: stretch;
+    align-items: stretch;
+    gap: 7px;
+}
+
+.pizza__order {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+}
+
+.order__price {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: #000000;
+}
+
+.order__button {
+    border: 1px solid #eb5a1e;
+    border-radius: 30px;
+    padding: 12px 24px;
+    background-color: #ffffff;
+
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: #eb5a1e;
+}

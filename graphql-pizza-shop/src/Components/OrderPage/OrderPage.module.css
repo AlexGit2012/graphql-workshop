@@ -1,0 +1,4 @@
+.orderPage {
+    display: flex;
+    flex-direction: column;
+}

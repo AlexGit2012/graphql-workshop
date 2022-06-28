@@ -1,0 +1,11 @@
+.searchBar {
+    display: flex;
+    justify-content: space-between;
+    margin: 32px 0px;
+}
+
+.searchBar__options {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: calc(100% - 250px);
+}

@@ -1,0 +1,22 @@
+.option {
+    height: 46px;
+    color: #2c2c2c;
+    border-radius: 30px;
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 26px;
+    margin: 0px 10px 10px 0px;
+    cursor: pointer;
+
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 19px;
+}
+
+.option_active {
+    color: #ffffff;
+    background-color: #282828;
+}
