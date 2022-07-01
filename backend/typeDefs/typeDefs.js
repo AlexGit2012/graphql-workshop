@@ -11,14 +11,6 @@ export const typeDefs = gql`
         filter: [String!]!
     }
 
-    type PizzaInOrder {
-        id: ID!
-        currentPrice: Int!
-        currentShape: String!
-        currentSize: String!
-        pizzaID: ID!
-    }
-
     type PizzaPrice {
         traditional: OptionPrice!
         slim: OptionPrice!
@@ -30,11 +22,29 @@ export const typeDefs = gql`
         big: Int!
     }
 
+    type PizzaInOrder {
+        id: ID!
+        currentAmount: Int!
+        currentPrice: Int!
+        currentShape: String!
+        currentSize: String!
+        pizzaID: ID!
+    }
+
     type Order {
         id: ID!
-        orderPizzas: [PizzaInOrder!]!
+        orderPizzas: [PizzaInOrder]
         pizzasAmount: Int!
         pizzasTotalPrice: Int!
+    }
+
+    input PizzaInOrderInput {
+        id: ID!
+        currentAmount: Int!
+        currentPrice: Int!
+        currentShape: String!
+        currentSize: String!
+        pizzaID: ID!
     }
 
     type Query {
@@ -43,5 +53,13 @@ export const typeDefs = gql`
         price(name: String!, shape: String!, size: String!): Int!
         orders: [Order!]!
         order(id: ID): Order!
+    }
+
+    type Mutation {
+        addOrder(
+            orderPizzas: [PizzaInOrderInput]
+            pizzasAmount: Int!
+            pizzasTotalPrice: Int!
+        ): Order
     }
 `;

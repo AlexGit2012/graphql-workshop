@@ -2,7 +2,7 @@ import React, { useCallback, useContext } from 'react';
 import classNames from 'classnames';
 import utilsStyles from '../../../../utils/utilsStyles.module.css';
 import styles from './SearchOption.module.css';
-import { FilterContext } from '../../OrderPage';
+import { FilterContext } from '../../ShopPage';
 
 const SearchOption = ({ name, isActive = false }) => {
     const { setFilter } = useContext(FilterContext);

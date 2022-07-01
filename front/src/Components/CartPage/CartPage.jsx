@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
 import CartOrder from './CartOrder/CartOrder';
 import EmptyOrderPage from './EmptyOrderPage/EmptyOrderPage';
@@ -6,12 +6,23 @@ import styles from './CartPage.module.css';
 import arrowIcon from '../../assets/images/arrow.svg';
 import cartIcon from '../../assets/images/iconfinder_shopping-cart.svg';
 import trashIcon from '../../assets/images/trash.svg';
-import { useReactiveVar } from '@apollo/client';
+import { useMutation, useReactiveVar } from '@apollo/client';
 import { initialStorageValue, localOrderState } from '../../apollo-client/apollo-client';
 import { calculateOrder } from '../../utils/utils';
+import { ADD_ORDER } from '../../mutations/mutations';
+import SuccessOrderPage from './SuccessOrderPage/SuccessOrderPage';
 
 const CartPage = () => {
+    const [isOrderSent, setOrderStatus] = useState(false);
     const { orderPizzas, pizzasTotalPrice, pizzasAmount } = useReactiveVar(localOrderState);
+
+    const [sendOrder, { data, loading, error }] = useMutation(ADD_ORDER);
+
+    const sendOrderCB = useCallback(async () => {
+        await sendOrder({ variables: { orderPizzas, pizzasTotalPrice, pizzasAmount } });
+        await setOrderStatus(true);
+        localOrderState(initialStorageValue);
+    }, [sendOrder, orderPizzas, pizzasTotalPrice, pizzasAmount]);
 
     const clearCart = () => {
         localOrderState(initialStorageValue);
@@ -38,6 +49,8 @@ const CartPage = () => {
         const { orderPizzas: updatedOrderPizzas } = localOrderState();
         localOrderState(calculateOrder(updatedOrderPizzas));
     };
+
+    if (isOrderSent) return <SuccessOrderPage />;
 
     return pizzasTotalPrice ? (
         <div className={styles.cart__wrapper}>
@@ -79,7 +92,7 @@ const CartPage = () => {
                 <div className={styles.cart__purchase}>
                     <div className={styles.purchase__about}>
                         <div className={styles.about__count}>
-                            Всего пицц:{' '}
+                            Всего пицц:
                             <span className={styles.count__number}>{pizzasAmount} шт.</span>
                         </div>
                         <div className={styles.about__price}>
@@ -96,7 +109,9 @@ const CartPage = () => {
                                 Вернуться назад
                             </button>
                         </Link>
-                        <button className={styles.buttons__submit}>Оплатить сейчас</button>
+                        <button className={styles.buttons__submit} onClick={sendOrderCB}>
+                            Оплатить сейчас
+                        </button>
                     </div>
                 </div>
             </div>

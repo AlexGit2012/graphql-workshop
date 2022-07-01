@@ -18,6 +18,8 @@
 }
 
 .sortBy__text {
+    display: flex;
+    flex-direction: row;
     font-family: 'Open Sans', sans-serif;
     font-weight: 700;
     font-size: 14px;

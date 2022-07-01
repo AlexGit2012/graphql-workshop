@@ -1,0 +1,17 @@
+.orders__wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.orders {
+    width: 100%;
+    padding: 100px 0;
+    display: grid;
+    gap: 20px;
+}
+
+.orders__header {
+    margin-bottom: 20px;
+    font-family: "Open Sans", sans-serif;
+}

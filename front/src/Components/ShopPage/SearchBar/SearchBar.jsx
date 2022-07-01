@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import SearchOption from './SearchOption/SearchOption';
 import SortBy from './SortBy/SortBy';
 import styles from './SearchBar.module.css';
-import { FilterContext } from '../OrderPage';
+import { FilterContext } from '../ShopPage';
 
 const SearchBar = () => {
     const { filter } = useContext(FilterContext);

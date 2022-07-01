@@ -3,27 +3,30 @@ import PizzaItem from './PizzaItem/PizzaItem';
 import styles from './PizzaPage.module.css';
 import { GET_ALL_PIZZAS } from '../../../queries/queries';
 import { useQuery } from '@apollo/client';
-import { FilterContext } from '../OrderPage';
+import { FilterContext } from '../ShopPage';
 
 const PizzaPage = () => {
-    const { filter, sortByValue } = useContext(FilterContext);
+    const { filter, sortByValue, isDescentOrder } = useContext(FilterContext);
 
     const { loading, data, error } = useQuery(GET_ALL_PIZZAS);
 
     const [sortedArr, setSortedArr] = useState([]);
 
     useEffect(() => {
+        const sortDirectionValue = isDescentOrder ? 1 : -1;
         if (data?.pizzas) {
             const myArr = [...data?.pizzas];
             myArr.sort((firstPizza, secondPizza) => {
                 if (sortByValue !== 'name') {
-                    return firstPizza[sortByValue] - secondPizza[sortByValue];
+                    return (
+                        (firstPizza[sortByValue] - secondPizza[sortByValue]) * sortDirectionValue
+                    );
                 } else {
                     if (firstPizza[sortByValue] < secondPizza[sortByValue]) {
-                        return -1;
+                        return -1 * sortDirectionValue;
                     }
                     if (firstPizza[sortByValue] > secondPizza[sortByValue]) {
-                        return 1;
+                        return 1 * sortDirectionValue;
                     }
                     return 0;
                 }
@@ -35,7 +38,7 @@ const PizzaPage = () => {
                 })
             );
         }
-    }, [data?.pizzas, sortByValue, filter]);
+    }, [data?.pizzas, sortByValue, filter, isDescentOrder]);
 
     if (error) return <h3>Something went wrong...</h3>;
 

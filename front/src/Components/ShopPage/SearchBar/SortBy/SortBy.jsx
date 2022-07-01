@@ -3,22 +3,23 @@ import classNames from 'classnames';
 import utilsStyles from '../../../../utils/utilsStyles.module.css';
 import styles from './SortBy.module.css';
 import triangleIcon from '../../../../assets/images/triangle.svg';
-import { FilterContext } from '../../OrderPage';
+import { FilterContext } from '../../ShopPage';
 
 const dictionarySortBy = [
-    { name: 'popularity', value: 'Популярности' },
+    { name: 'popularity', value: 'популярности' },
     { name: 'name', value: 'по алфавиту' },
     { name: 'minPrice', value: 'по цене' },
 ];
 
 const SortBy = () => {
-    const { sortByValue, setSortByValue } = useContext(FilterContext);
+    const { sortByValue, setSortByValue, isDescentOrder, setDescentOrder } =
+        useContext(FilterContext);
 
     const [isMenuVisible, setVisible] = useState(false);
 
     const triangleStyle = classNames({
         [styles.sortBy__image]: true,
-        [styles.sortBy__image_active]: isMenuVisible,
+        [styles.sortBy__image_active]: isDescentOrder,
     });
 
     const sortByStyle = classNames({ [styles.sortBy]: true, [utilsStyles.noSelect]: true });
@@ -26,6 +27,10 @@ const SortBy = () => {
     const setVisibleCB = useCallback(() => {
         setVisible(!isMenuVisible);
     }, [isMenuVisible]);
+
+    const setDescentOrderCB = useCallback(() => {
+        setDescentOrder(!isDescentOrder);
+    }, [isDescentOrder, setDescentOrder]);
 
     const closeMenu = useCallback(() => {
         setVisible(false);
@@ -37,19 +42,19 @@ const SortBy = () => {
     };
 
     return (
-        <div className={sortByStyle} onBlur={closeMenu} tabIndex="0">
+        <div className={sortByStyle}>
             <img
                 className={triangleStyle}
                 src={triangleIcon}
                 alt="triangle"
-                onClick={setVisibleCB}
+                onClick={setDescentOrderCB}
             />
-            <span className={styles.sortBy__text} onClick={setVisibleCB}>
+            <div className={styles.sortBy__text} onClick={setVisibleCB}>
                 Сортировка по:
-                <span className={styles.sortBy__filter}>
+                <div className={styles.sortBy__filter} onBlur={closeMenu}>
                     {dictionarySortBy.find((element) => element.name === sortByValue).value}
-                </span>
-            </span>
+                </div>
+            </div>
             {isMenuVisible && (
                 <div className={styles.sortBy__menu}>
                     {dictionarySortBy.map(({ name, value }) => (
