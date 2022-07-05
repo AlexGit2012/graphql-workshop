@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import { PIZZA_FRAGMENT, PIZZA_PRICE_FRAGMENT } from '../fragments/pizzaFragments';
+import { PIZZA_FRAGMENT } from '../fragments/pizzaFragments';
 import { ORDER_FRAGMENT } from '../fragments/ordersFragment';
 
 export const GET_ALL_PIZZAS = gql`
@@ -16,15 +16,6 @@ export const GET_PIZZA = gql`
     query GetPizza($id: ID!) {
         pizza(id: $id) {
             ...pizzaFields
-        }
-    }
-`;
-
-export const GET_PIZZA_PRICE = gql`
-    ${PIZZA_PRICE_FRAGMENT}
-    query GetPizzaPrice($id: ID!) {
-        pizza(id: $id) {
-            ...pizzaPrices
         }
     }
 `;

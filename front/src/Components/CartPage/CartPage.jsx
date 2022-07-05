@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import CartOrder from './CartOrder/CartOrder';
 import EmptyOrderPage from './EmptyOrderPage/EmptyOrderPage';
@@ -11,18 +11,42 @@ import { initialStorageValue, localOrderState } from '../../apollo-client/apollo
 import { calculateOrder } from '../../utils/utils';
 import { ADD_ORDER } from '../../mutations/mutations';
 import SuccessOrderPage from './SuccessOrderPage/SuccessOrderPage';
+import { GET_ALL_ORDERS } from '../../queries/queries';
 
 const CartPage = () => {
     const [isOrderSent, setOrderStatus] = useState(false);
     const { orderPizzas, pizzasTotalPrice, pizzasAmount } = useReactiveVar(localOrderState);
 
-    const [sendOrder, { data, loading, error }] = useMutation(ADD_ORDER);
+    const [sendOrder, { error }] = useMutation(ADD_ORDER, {
+        update(cache, { data: { addOrder } }) {
+            const allOrders = cache.readQuery({ query: GET_ALL_ORDERS }) || { orders: [] };
+            console.log('allOrders', allOrders);
+            console.log('addOrder', addOrder);
+            cache.writeQuery({
+                query: GET_ALL_ORDERS,
+                data: { orders: [addOrder, ...allOrders.orders] },
+            });
+        },
+    });
 
-    const sendOrderCB = useCallback(async () => {
-        await sendOrder({ variables: { orderPizzas, pizzasTotalPrice, pizzasAmount } });
-        await setOrderStatus(true);
+    const sendOrderCB = async () => {
+        console.log('sendOrderCB -> orderPizzas', orderPizzas);
+        await sendOrder({
+            variables: { orderPizzas, pizzasTotalPrice, pizzasAmount },
+            optimisticResponse: {
+                __typename: 'Mutation',
+                addOrder: {
+                    __typename: 'Order',
+                    id: 'temporalID',
+                    orderPizzas,
+                    pizzasTotalPrice,
+                    pizzasAmount,
+                },
+            },
+        });
+        setOrderStatus(true);
         localOrderState(initialStorageValue);
-    }, [sendOrder, orderPizzas, pizzasTotalPrice, pizzasAmount]);
+    };
 
     const clearCart = () => {
         localOrderState(initialStorageValue);
@@ -49,6 +73,8 @@ const CartPage = () => {
         const { orderPizzas: updatedOrderPizzas } = localOrderState();
         localOrderState(calculateOrder(updatedOrderPizzas));
     };
+
+    if (error) return 'Something went wrong...';
 
     if (isOrderSent) return <SuccessOrderPage />;
 

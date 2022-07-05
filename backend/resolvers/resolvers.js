@@ -1,10 +1,12 @@
 import module from 'module';
 import * as fs from 'fs';
 import { v4 as uuidv4 } from 'uuid';
+import { PubSub } from 'graphql-subscriptions';
 
 const requireForJSON = module.createRequire(import.meta.url);
 const pizzas = requireForJSON('../data/pizzas.json');
 const orders = requireForJSON('../data/orders.json');
+const pubSub = new PubSub();
 
 export const resolvers = {
     Query: {
@@ -15,7 +17,7 @@ export const resolvers = {
     },
 
     Mutation: {
-        addOrder: (parent, { orderPizzas, pizzasAmount, pizzasTotalPrice }) => {
+        addOrder: async (parent, { orderPizzas, pizzasAmount, pizzasTotalPrice }) => {
             const newOrder = { id: uuidv4(), orderPizzas, pizzasAmount, pizzasTotalPrice };
             orders.push(newOrder);
             fs.readFile('./data/orders.json', 'utf8', (error, data) => {
@@ -34,6 +36,17 @@ export const resolvers = {
                     });
                 }
             });
+            await pubSub.publish('ORDER_CREATED', {
+                orderCreated: {
+                    ...newOrder,
+                },
+            });
+            return newOrder;
+        },
+    },
+    Subscription: {
+        orderCreated: {
+            subscribe: () => pubSub.asyncIterator('ORDER_CREATED'),
         },
     },
 };

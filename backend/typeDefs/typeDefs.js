@@ -1,4 +1,4 @@
-import { gql } from 'apollo-server';
+import { gql } from 'apollo-server-express';
 
 export const typeDefs = gql`
     type Pizza {
@@ -61,5 +61,9 @@ export const typeDefs = gql`
             pizzasAmount: Int!
             pizzasTotalPrice: Int!
         ): Order
+    }
+
+    type Subscription {
+        orderCreated: Order
     }
 `;

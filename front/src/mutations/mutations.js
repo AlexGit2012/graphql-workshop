@@ -11,8 +11,11 @@ export const ADD_ORDER = gql`
             pizzasAmount: $pizzasAmount
             pizzasTotalPrice: $pizzasTotalPrice
         ) {
+            __typename
+            id
             orderPizzas {
                 id
+                currentAmount
                 currentPrice
                 currentShape
                 currentSize

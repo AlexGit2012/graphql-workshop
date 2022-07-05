@@ -3,13 +3,13 @@ import PizzaSetting from './PizzaSetting/PizzaSetting';
 import styles from './PizzaItem.module.css';
 import { useQuery, useReactiveVar } from '@apollo/client';
 import { v4 as uuidv4 } from 'uuid';
-import { GET_PIZZA_PRICE } from '../../../../queries/queries';
+import { GET_PIZZA, GET_PIZZA_PRICE } from '../../../../queries/queries';
 import { localOrderState } from '../../../../apollo-client/apollo-client';
 import { calculateOrder, priceShapeDictionary, priceSizeDictionary } from '../../../../utils/utils';
 
 const PizzaItem = ({ name, image, id }) => {
     const [settingObj, setSetting] = useState({
-        shape: 'тонкое',
+        shape: 'традиционное',
         size: '26 см.',
     });
 
@@ -25,7 +25,7 @@ const PizzaItem = ({ name, image, id }) => {
         )?.currentAmount;
     }, [orderPizzas, id, settingObj.shape, settingObj.size]);
 
-    const { loading, data } = useQuery(GET_PIZZA_PRICE, { variables: { id } });
+    const { loading, data } = useQuery(GET_PIZZA, { variables: { id } });
 
     const priceFieldBuilder = useCallback(
         (pizzaData) => {

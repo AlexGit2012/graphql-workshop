@@ -6,13 +6,16 @@ import reportWebVitals from './reportWebVitals';
 import './index.css';
 import { ApolloProvider } from '@apollo/client';
 import { client } from './apollo-client/apollo-client';
+import ErrorBoundary from './Components/ErrorBoundary/ErrorBoundary';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
         <ApolloProvider client={client}>
             <BrowserRouter>
-                <App />
+                <ErrorBoundary>
+                    <App />
+                </ErrorBoundary>
             </BrowserRouter>
         </ApolloProvider>
     </React.StrictMode>

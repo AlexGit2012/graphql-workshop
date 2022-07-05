@@ -1,16 +1,60 @@
-import { resolvers } from "./resolvers/resolvers.js";
-import { typeDefs } from "./typeDefs/typeDefs.js";
-import { ApolloServer } from "apollo-server";
+import { resolvers } from './resolvers/resolvers.js';
+import { typeDefs } from './typeDefs/typeDefs.js';
+import { ApolloServer } from 'apollo-server-express';
+import { createServer } from 'http';
+import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
+import { makeExecutableSchema } from '@graphql-tools/schema';
+import { WebSocketServer } from 'ws';
+import { useServer } from 'graphql-ws/lib/use/ws';
+import express from 'express';
+import cors from 'cors';
 
-export const server = new ApolloServer({
-    typeDefs,
-    resolvers,
-    csrfPrevention: true,
-    cache: "bounded",
-});
+(async () => {
+    const schema = makeExecutableSchema({
+        cors: {
+            origin: '*',
+            credentials: true,
+        },
+        typeDefs,
+        resolvers,
+    });
 
-const port = process.env.PORT || 5000;
+    const app = express();
+    app.use(cors());
 
-server.listen({ port }).then(({ url }) => {
-    console.log(`Server ready at ${url}`);
-});
+    const httpServer = createServer(app);
+
+    const wsServer = new WebSocketServer({
+        server: httpServer,
+        path: '/graphql',
+    });
+
+    const serverCleanup = useServer({ schema }, wsServer);
+
+    const server = new ApolloServer({
+        schema,
+        csrfPrevention: true,
+        cache: 'bounded',
+        plugins: [
+            ApolloServerPluginDrainHttpServer({ httpServer }),
+            {
+                async serverWillStart() {
+                    return {
+                        async drainServer() {
+                            await serverCleanup.dispose();
+                        },
+                    };
+                },
+            },
+        ],
+    });
+
+    await server.start();
+    server.applyMiddleware({ app });
+
+    const PORT = process.env.PORT || 5000;
+
+    httpServer.listen(PORT, () => {
+        console.log(`Server ready at http://localhost:${PORT}${server.graphqlPath}`);
+    });
+})();
